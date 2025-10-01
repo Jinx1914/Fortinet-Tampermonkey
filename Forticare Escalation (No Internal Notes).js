@@ -2,7 +2,7 @@
 // @name           FortiCare Escalation
 // @author         Nico Angelo Abanes and Carnil Anthony De Lara
 // @namespace      http://userscripts.frval.fortinet-emea.com/
-// @version        v1.2
+// @version        v1.0
 // @description    Adds [SE]/[DM] to ticket title, triggers ticket submit, opens SharePoint, clears form textarea, shows banner only for escalated tickets.
 // @grant          none
 // @include        https://forticare.fortinet.com/CustomerSupport/SupportTeam/EditTicket.aspx*
@@ -159,6 +159,7 @@ $(document).ready(function () {
     }
   });
 });
+
 
 
 
