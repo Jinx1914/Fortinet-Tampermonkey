@@ -7,8 +7,8 @@
 // @grant        none
 // @include      https://forticare.fortinet.com/CustomerSupport/SupportTeam/EditTicket.aspx*
 // @include      https://forticare.fortinet.com/CustomerSupport/SupportTeam/BrowseTicket.aspx*
-// @updateURL    https://github.com/Jinx1914/Fortinet-Tampermonkey/main/Forticare%20Out-of-Region%20(No%20+-%20Buttons,%20No%20internal%20notes)%20-%20Copy.js
-// @downloadURL  https://github.com/Jinx1914/Fortinet-Tampermonkey/main/Forticare%20Out-of-Region%20(No%20+-%20Buttons,%20No%20internal%20notes)%20-%20Copy.js
+// @updateURL    https://github.com/Jinx1914/Fortinet-Tampermonkey/raw/refs/heads/main/Forticare%20Out-of-Region%20(No%20+-%20Buttons,%20No%20internal%20notes)%20-%20Copy.js
+// @downloadURL  https://github.com/Jinx1914/Fortinet-Tampermonkey/raw/refs/heads/main/Forticare%20Out-of-Region%20(No%20+-%20Buttons,%20No%20internal%20notes)%20-%20Copy.js
 // ==/UserScript==
 
 'use strict';
@@ -237,6 +237,7 @@ $(document).ready(function () {
     addDataCaptureButton();
     new MutationObserver(addDataCaptureButton).observe(document.body,{childList:true,subtree:true});
 });
+
 
 
 
