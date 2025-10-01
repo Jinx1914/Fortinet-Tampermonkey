@@ -2,11 +2,13 @@
 // @name FortiCare Out-of-Region
 // @author Nico Angelo Abanes and Carnil Anthony De Lara
 // @namespace http://userscripts.frval.fortinet-emea.com/
-// @version 1.1
+// @version 1.2
 // @description A button for tracking out-of-region customer handling with dynamic Engineer Name and simplified TAC management (Add/Remove buttons removed, form size adjusted, slimmer design).
 // @grant none
 // @include https://forticare.fortinet.com/CustomerSupport/SupportTeam/EditTicket.aspx*
 // @include https://forticare.fortinet.com/CustomerSupport/SupportTeam/BrowseTicket.aspx*
+// @updatURL https://raw.githubusercontent.com/Jinx1914/Fortinet-Tampermonkey/refs/heads/main/Forticare%20Out-of-Region%20(No%20%2B-%20Buttons%2C%20No%20internal%20notes)%20-%20Copy.js?token=GHSAT0AAAAAADMIHE5GKQUGBGRNH3ICNYZG2G4YXQA
+// @downloadURL https://raw.githubusercontent.com/Jinx1914/Fortinet-Tampermonkey/refs/heads/main/Forticare%20Out-of-Region%20(No%20%2B-%20Buttons%2C%20No%20internal%20notes)%20-%20Copy.js?token=GHSAT0AAAAAADMIHE5GKQUGBGRNH3ICNYZG2G4YXQA
 // ==/UserScript==
 
 'use strict';
@@ -16,7 +18,7 @@ $(document).ready(function () {
     const SHAREPOINT_LINK = 'https://fortinet.sharepoint.com/sites/APACLoadStat-APACOORHandling/Shared%20Documents/Forms/AllItems.aspx?csf=1&web=1&e=5XI1Sv&CID=0a29f243%2D878d%2D4f3b%2Dba61%2Df6f565e1fe7a&FolderCTID=0x012000408E99028165044593B5666E3A76335F&id=%2Fsites%2FAPACLoadStat%2DAPACOORHandling%2FShared%20Documents%2FAPAC%20OOR%20Handling';
 
     const engineerData = {
-        'Manila': ['Aaron Chu','Aristeo Quilingan','Arnold Dimailig','Constantin Avellano','Denice De Guzman','Elmer Malayan',
+        'Manila': ['Aa Chu','Aristeo Quilingan','Arnold Dimailig','Constantin Avellano','Denice De Guzman','Elmer Malayan',
             'Franco Dettori Santos','Franklin Terence Conag','Innah Valerie Bituya','Jackquelyn Era','Jezza Paula Hernandez',
             'Jeferson Bernabe','Jeric Añonuevo','John Michael Lim','Jordan Clar','Kristelle Corinne Andawi','Lars Rayson Bollas',
             'Mar Pugahac','Nico Angelo Abanes','Paulo Dela Pena','Pearl Angelica Chavez','Reybin Villaroman','Reynante Aureada',
@@ -229,5 +231,3 @@ $(document).ready(function () {
     addDataCaptureButton();
     new MutationObserver(addDataCaptureButton).observe(document.body,{childList:true,subtree:true});
 });
-
-
