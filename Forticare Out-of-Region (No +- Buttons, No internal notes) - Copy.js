@@ -2,7 +2,7 @@
 // @name FortiCare Out-of-Region
 // @author Nico Angelo Abanes and Carnil Anthony De Lara
 // @namespace http://userscripts.frval.fortinet-emea.com/
-// @version 1.3
+// @version 1.0
 // @description A button for tracking out-of-region customer handling with dynamic Engineer Name and simplified TAC management (Add/Remove buttons removed, form size adjusted, slimmer design).
 // @grant none
 // @include https://forticare.fortinet.com/CustomerSupport/SupportTeam/EditTicket.aspx*
@@ -231,3 +231,4 @@ $(document).ready(function () {
     addDataCaptureButton();
     new MutationObserver(addDataCaptureButton).observe(document.body,{childList:true,subtree:true});
 });
+
