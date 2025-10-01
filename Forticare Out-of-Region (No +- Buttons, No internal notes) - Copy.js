@@ -3,7 +3,7 @@
 // @author       Nico Angelo Abanes and Carnil Anthony De Lara
 // @namespace    http://userscripts.frval.fortinet-emea.com/
 // @version      v1.0
-// @description  A button for tracking out-of-region customers
+// @description  A button to track out-of-region customers
 // @grant        none
 // @include      https://forticare.fortinet.com/CustomerSupport/SupportTeam/EditTicket.aspx*
 // @include      https://forticare.fortinet.com/CustomerSupport/SupportTeam/BrowseTicket.aspx*
@@ -237,3 +237,4 @@ $(document).ready(function () {
     addDataCaptureButton();
     new MutationObserver(addDataCaptureButton).observe(document.body,{childList:true,subtree:true});
 });
+
