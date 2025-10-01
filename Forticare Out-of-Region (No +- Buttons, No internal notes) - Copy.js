@@ -2,7 +2,7 @@
 // @name         FortiCare Out-of-Region
 // @author       Nico Angelo Abanes and Carnil Anthony De Lara
 // @namespace    http://userscripts.frval.fortinet-emea.com/
-// @version      v1.0
+// @version      v1.1
 // @description  A button to track out-of-region customers
 // @grant        none
 // @include      https://forticare.fortinet.com/CustomerSupport/SupportTeam/EditTicket.aspx*
@@ -237,4 +237,5 @@ $(document).ready(function () {
     addDataCaptureButton();
     new MutationObserver(addDataCaptureButton).observe(document.body,{childList:true,subtree:true});
 });
+
 
