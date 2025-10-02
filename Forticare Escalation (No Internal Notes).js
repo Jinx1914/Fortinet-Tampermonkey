@@ -3,7 +3,7 @@
 // @author         Nico Angelo Abanes and Carnil Anthony De Lara
 // @namespace      http://userscripts.frval.fortinet-emea.com/
 // @version        v1.0
-// @description    Adds [SE]/[DM] to ticket title, triggers ticket submit, opens SharePoint, clears form textarea, shows banner only for escalated tickets.
+// @description    Adds [SE]/[DM] to ticket title, triggers ticket submit, opens SharePoint, shows banner only for escalated tickets.
 // @grant          none
 // @include        https://forticare.fortinet.com/CustomerSupport/SupportTeam/EditTicket.aspx*
 // @include        https://forticare.fortinet.com/CustomerSupport/SupportTeam/BrowseTicket.aspx*
@@ -30,15 +30,15 @@ $(document).ready(function () {
       #submitEscalation:hover { background: #218838; }
       .escalate-invalid { border-color: red !important; background: #ffe6e6; }
 
-      /* Banner styles */
-      #escalationBanner { position: fixed; bottom: 20px; right: 20px; background: #FF5722; color: #fff; padding: 16px 20px; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.3); font-family: 'Segoe UI', sans-serif; max-width: 350px; min-width: 250px; display: flex; flex-direction: column; gap: 4px; word-wrap: break-word; white-space: normal; z-index: 10000; font-size: 14px; line-height: 1.4; max-height: 70vh; overflow-y: auto; }
+      /* Banner styles (bottom-center) */
+      #escalationBanner { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background: #FF5722; color: #fff; padding: 16px 20px; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.3); font-family: 'Segoe UI', sans-serif; max-width: 350px; min-width: 250px; display: flex; flex-direction: column; gap: 4px; word-wrap: break-word; white-space: normal; z-index: 10000; font-size: 14px; line-height: 1.4; max-height: 70vh; overflow-y: auto; }
       #closeEscalationBanner { position: absolute; top: 10px; right: 12px; background: transparent; border: none; color: #fff; font-size: 20px; cursor: pointer; line-height: 1; }
       #closeEscalationBanner:hover { color: #ffc107; }
       .banner-title { font-weight: 800; font-size: 15px; margin-bottom: 6px; padding-right: 30px; text-transform: uppercase; display: flex; align-items: center; gap: 6px; }
       .banner-line { margin-bottom: 3px; line-height: 1.3em; }
 
       /* Show Banner Button */
-      #showEscalationBanner { display: none; position: fixed; bottom: 20px; right: 20px; background: #FF5722; color: #fff; border: none; padding: 10px 14px; border-radius: 6px; cursor: pointer; z-index: 10001; font-size: 13px; box-shadow: 0 3px 10px rgba(0,0,0,0.2); }
+      #showEscalationBanner { display: none; position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background: #FF5722; color: #fff; border: none; padding: 10px 14px; border-radius: 6px; cursor: pointer; z-index: 10001; font-size: 13px; box-shadow: 0 3px 10px rgba(0,0,0,0.2); }
       #showEscalationBanner:hover { background: #E64A19; }
     `;
     document.head.appendChild(style);
@@ -79,6 +79,25 @@ $(document).ready(function () {
   }
   if ($('#showEscalationBanner').length === 0) $('body').append('<button id="showEscalationBanner">⚠️ ESCALATION DETAILS</button>');
 
+  /** ---------- Ensure Escalate Button Injection ---------- */
+  function insertEscalateButton() {
+    if ($('#escalateButton').length === 0 && $('#dataCaptureButton').length > 0) {
+      $('<button id="escalateButton" type="button" style="margin-left:10px;">Escalate</button>')
+        .insertAfter('#dataCaptureButton');
+    }
+  }
+
+  // Run immediately, then retry every 1s until found
+  insertEscalateButton();
+  const buttonInterval = setInterval(() => {
+    insertEscalateButton();
+    if ($('#escalateButton').length > 0) clearInterval(buttonInterval);
+  }, 1000);
+
+  // Also observe DOM changes
+  const observer = new MutationObserver(insertEscalateButton);
+  observer.observe(document.body, { childList: true, subtree: true });
+
   /** ---------- JS Logic ---------- */
   const backdropEl = $('#escalateBackdrop');
   const formEl = $('#escalateForm');
@@ -92,7 +111,7 @@ $(document).ready(function () {
   backdropEl.on('click', hideModal);
   $(document).on('keydown', e => { if (e.key === 'Escape') hideModal(); });
 
-  // Check ticket title for [SE] or [DM] to show banner only for escalated tickets
+  // Check ticket title for [SE] or [DM] to show banner
   const ticketTitleFieldVal = $('input[name="ctl00$MainContent$TB_TicketTitle"]').val() || '';
   if (ticketTitleFieldVal.includes('[SE]') || ticketTitleFieldVal.includes('[DM]')) {
       const savedBanner = sessionStorage.getItem('escalationBanner');
@@ -124,8 +143,8 @@ $(document).ready(function () {
       ticketTitleField.val(prefix + ticketTitleField.val());
     }
 
-    const comment = $('#escalateComment').val(); // keep comment for banner
-    $('#escalateComment').val(''); // clear textarea
+    const comment = $('#escalateComment').val();
+    $('#escalateComment').val('');
 
     if (!confirm('You are about to submit the form and open the Project Management SharePoint. Would you like to proceed?')) return;
 
@@ -159,7 +178,3 @@ $(document).ready(function () {
     }
   });
 });
-
-
-
-
